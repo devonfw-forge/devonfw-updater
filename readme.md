@@ -15,7 +15,7 @@ On root folder run this command:
 > updater.bat
 ```
 
-Make sure you are on root and the folder it's called updater. Otherwise try this commands: 
+Make sure you are on root and the folder it's called updater. Otherwise try this command: 
 
 ```bash
 > node [folder_name]\src\update.js
