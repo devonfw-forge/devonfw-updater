@@ -1,3 +1,4 @@
 @echo off
-node .\updater\src\update.js
+call npm --prefix .\updater\ install .\updater\
+call node .\updater\src\update.js
 PAUSE 

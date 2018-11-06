@@ -76,6 +76,7 @@ var Updater = /** @class */ (function () {
                 throw err;
             //Unzip on Devonfw root. Then delete the .zip
             try {
+                console.log("Unzipping", fileName);
                 fs.createReadStream('./' + fileName).pipe(unzip.Extract({ path: './' }));
                 fs.unlinkSync('./' + fileName);
                 console.log("Latest patch applied.");
