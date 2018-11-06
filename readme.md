@@ -15,7 +15,7 @@ On root folder, launch update.bat or run this command:
 > updater.bat
 ```
 
-Make sure you are on root and the folder it's called "updater". 
+Make sure you are on Devonfw root and the updater folder it's called "updater". 
 
 Otherwise, go to the project folder and try this:
 
