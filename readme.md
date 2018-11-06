@@ -5,7 +5,7 @@ This is a project that allows to keep Devonfw updated.
 
 ## Installation
 
-Download updater-v1.0.0.zip and extract it on your root Devonfw folder.
+Download updater-v1.1.0.zip and extract it on your root Devonfw folder.
 
 ## Usage
 
