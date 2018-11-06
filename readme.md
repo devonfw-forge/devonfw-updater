@@ -18,6 +18,5 @@ On root folder run this command:
 Make sure you are on root and the folder it's called updater. Otherwise try this commands: 
 
 ```bash
-> tsc [folder_name]\src\update.ts
 > node [folder_name]\src\update.js
 ```
