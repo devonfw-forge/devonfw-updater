@@ -9,7 +9,7 @@ Save the folder and updater.bat on your root Devonfw folder.
 
 ## Usage
 
-On root folder run this command:
+On root folder, launch update.bat or run this command:
 
 ```bash
 > updater.bat
