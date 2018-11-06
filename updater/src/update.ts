@@ -14,7 +14,12 @@ class Updater {
         this.ftpUrl = 'http://de-mucevolve02/files/devonfw/';
     }
 
-    public update() {
+    /**
+    * This function get your Devonfw version and, if there are new updates, then it downloads and install them.
+    * @param
+    * @returns
+    */
+    public update(): void {
         var currentVersion: string = "";
         var latestVersion: string = "";
         var currentDatePatch: string = "";
@@ -24,7 +29,7 @@ class Updater {
             var contents = fs.readFileSync('./conf/settings.json', 'utf8');
             currentVersion = JSON.parse(contents)["version"];
         }
-        catch(e){
+        catch (e) {
             console.log(e);
         }
 
@@ -35,16 +40,16 @@ class Updater {
         }
 
         //Check if there is a new version
-        latestVersion = this.updateExists(currentVersion);
+        latestVersion = this.getLatestVersion(currentVersion);
 
         //Read from updater.log
-        try{
+        try {
             currentDatePatch = fs.readFileSync(this.updaterLogPath, 'utf8');
         }
-        catch(e){
+        catch (e) {
             console.log(e);
         }
-        
+
         if (currentDatePatch < latestVersion || currentDatePatch == "") {
             //Download, unzip and delete update
             this.getLastPatch(latestVersion, currentVersion);
@@ -55,7 +60,12 @@ class Updater {
         }
     }
 
-    private updateExists(currentVersion: string): string {
+    /**
+    * Look If there is a new update in ftp server 
+    * @param currentVersion The version of Devonfw 
+    * @returns returns last package version in ftp server
+    */
+    private getLatestVersion(currentVersion: string): string {
         var url = this.ftpUrl + currentVersion + '/';
         var reg: string = '>win_accumulative_patch_';
         var latestVersion: string = "";
@@ -79,6 +89,12 @@ class Updater {
         return latestVersion;
     }
 
+    /**
+    * Download new patch, unzip it and delete it. 
+    * @param lastestPatchURL URL where the file is in ftp server
+    * @param currentVersion The version of Devonfw 
+    * @returns
+    */
     private getLastPatch(lastestPatchURL: string, currentVersion: string): void {
         var fileName = 'win_accumulative_patch_' + lastestPatchURL + '.zip';
         var url = this.ftpUrl + currentVersion + '/' + fileName;
@@ -105,16 +121,21 @@ class Updater {
         });
     }
 
+    /**
+    * Update file updater.log whith date of las patch applied
+    * @param updaterLogPath Path where updater.log is
+    * @param latestVersion Las date of patch applied
+    * @returns
+    */
     private updateLog(updaterLogPath: string, latestVersion: string): void {
-        try{
+        try {
             fs.writeFileSync(updaterLogPath, latestVersion);
         }
-        catch(e){
+        catch (e) {
             console.log(e);
         }
     }
 }
 
 var updater = new Updater();
-
 updater.update();
