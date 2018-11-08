@@ -6,6 +6,7 @@ This is a project that allows to keep Devonfw updated.
 ## Installation
 
 Download updater-v1.1.0.zip and extract it on your root Devonfw folder.
+[Click here](https://github.com/devonfw-forge/devonfw-updater/raw/master/updater-v1.1.0.zip)
 
 ## Usage
 
