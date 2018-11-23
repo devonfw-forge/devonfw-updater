@@ -10,6 +10,11 @@ var Updater = /** @class */ (function () {
         this.root = './';
         this.ftpUrl = 'http://de-mucevolve02/files/devonfw/';
     }
+    /**
+    * This function get your Devonfw version and, if there are new updates, then it downloads and install them.
+    * @param
+    * @returns
+    */
     Updater.prototype.update = function () {
         var currentVersion = "";
         var latestVersion = "";
@@ -28,7 +33,7 @@ var Updater = /** @class */ (function () {
             fs.writeFileSync(this.updaterLogPath, "");
         }
         //Check if there is a new version
-        latestVersion = this.updateExists(currentVersion);
+        latestVersion = this.getLatestVersion(currentVersion);
         //Read from updater.log
         try {
             currentDatePatch = fs.readFileSync(this.updaterLogPath, 'utf8');
@@ -45,7 +50,12 @@ var Updater = /** @class */ (function () {
             console.log("Patch up to date.");
         }
     };
-    Updater.prototype.updateExists = function (currentVersion) {
+    /**
+    * Look If there is a new update in ftp server
+    * @param currentVersion The version of Devonfw
+    * @returns returns last package version in ftp server
+    */
+    Updater.prototype.getLatestVersion = function (currentVersion) {
         var url = this.ftpUrl + currentVersion + '/';
         var reg = '>win_accumulative_patch_';
         var latestVersion = "";
@@ -63,6 +73,12 @@ var Updater = /** @class */ (function () {
         }
         return latestVersion;
     };
+    /**
+    * Download new patch, unzip it and delete it.
+    * @param lastestPatchURL URL where the file is in ftp server
+    * @param currentVersion The version of Devonfw
+    * @returns
+    */
     Updater.prototype.getLastPatch = function (lastestPatchURL, currentVersion) {
         var fileName = 'win_accumulative_patch_' + lastestPatchURL + '.zip';
         var url = this.ftpUrl + currentVersion + '/' + fileName;
@@ -86,6 +102,12 @@ var Updater = /** @class */ (function () {
             }
         });
     };
+    /**
+    * Update file updater.log whith date of las patch applied
+    * @param updaterLogPath Path where updater.log is
+    * @param latestVersion Las date of patch applied
+    * @returns
+    */
     Updater.prototype.updateLog = function (updaterLogPath, latestVersion) {
         try {
             fs.writeFileSync(updaterLogPath, latestVersion);

@@ -20,13 +20,13 @@ class Updater {
     * @returns
     */
     public update(): void {
-        var currentVersion: string = "";
-        var latestVersion: string = "";
-        var currentDatePatch: string = "";
+        let currentVersion: string = "";
+        let latestVersion: string = "";
+        let currentDatePatch: string = "";
 
         //Get version of Devon
         try {
-            var contents = fs.readFileSync('./conf/settings.json', 'utf8');
+            let contents = fs.readFileSync('./conf/settings.json', 'utf8');
             currentVersion = JSON.parse(contents)["version"];
         }
         catch (e) {
@@ -66,19 +66,19 @@ class Updater {
     * @returns returns last package version in ftp server
     */
     private getLatestVersion(currentVersion: string): string {
-        var url = this.ftpUrl + currentVersion + '/';
-        var reg: string = '>win_accumulative_patch_';
-        var latestVersion: string = "";
+        let url = this.ftpUrl + currentVersion + '/';
+        let reg: string = '>win_accumulative_patch_';
+        let latestVersion: string = "";
 
-        var res = request('GET', url);
-        var body = res.getBody('utf8');
+        let res = request('GET', url);
+        let body = res.getBody('utf8');
 
         while (body.length != 0) {
-            var fromMatch: number = body.search(reg);
-            var newBody = body.substr(fromMatch, body.length);
+            let fromMatch: number = body.search(reg);
+            let newBody = body.substr(fromMatch, body.length);
 
             //Extract the version with a date format (length = 8)
-            var versionNumber: string = newBody.substr(reg.length, 8);
+            let versionNumber: string = newBody.substr(reg.length, 8);
 
             if (latestVersion.length == 0 || latestVersion < versionNumber) {
                 latestVersion = versionNumber;
@@ -96,10 +96,10 @@ class Updater {
     * @returns
     */
     private getLastPatch(lastestPatchURL: string, currentVersion: string): void {
-        var fileName = 'win_accumulative_patch_' + lastestPatchURL + '.zip';
-        var url = this.ftpUrl + currentVersion + '/' + fileName;
+        let fileName = 'win_accumulative_patch_' + lastestPatchURL + '.zip';
+        let url = this.ftpUrl + currentVersion + '/' + fileName;
 
-        var options = {
+        let options = {
             directory: this.root,
             filename: fileName
         }
@@ -137,5 +137,5 @@ class Updater {
     }
 }
 
-var updater = new Updater();
+let updater = new Updater();
 updater.update();
